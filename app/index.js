@@ -1,18 +1,18 @@
-let canvas = document.getElementById('canvas');
-canvas.width  = 1000;
-canvas.height = 500;
-let ctx = canvas.getContext('2d');
+document.addEventListener("DOMContentLoaded", function() {
+  require('./dom')();
+});
 
-ctx.beginPath();
-ctx.moveTo(0,0);
-ctx.lineTo(300,150);
-ctx.lineTo(400,150);
-ctx.stroke();
-ctx.closePath();
+const turtle = require('./turtle');
+const width = 1000, height = 500;
+
+let canvas = document.getElementById('canvas');
+canvas.width  = width;
+canvas.height = height;
+let ctx = canvas.getContext('2d');
 
 let img = new Image();
 img.onload = function() {
-  ctx.drawImage(img, 0, 0);
+  turtle.init(width, height, img, ctx);
 };
 
 img.src = "turtle.jpg";

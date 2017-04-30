@@ -1,3 +1,43 @@
 .canvas-container {
   text-align: center;
 }
+
+.console {
+  width: 40%;
+  margin: 20px auto 0 auto;
+  text-align: left;
+  padding: 5px;
+  background-color: darkblue;
+  color: white;
+  font-weight: 900;
+  font-size: 16px;
+  height: 100px;
+  overflow-y: auto;
+}
+
+.console > * {
+  margin: 5px 0;
+  padding: 0 5px;
+}
+
+.success {
+  color: yellowgreen;
+}
+
+.error {
+  color: red
+}
+
+input {
+  color: white;
+  background-color: inherit;
+  border: none;
+  vertical-align: top;
+  margin-left: 5px;
+  font-weight: 900;
+  font-size: 14px;
+}
+
+input:focus, input:focus{
+  outline: none;
+}

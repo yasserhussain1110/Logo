@@ -113,7 +113,7 @@ function parseAsRepeat(lexemes) {
   let repeatParseResult = {
     type: "repeat",
     times: parseInt(second.value),
-    commands: []
+    subCommands: []
   };
 
 
@@ -124,7 +124,7 @@ function parseAsRepeat(lexemes) {
 
   while(true) {
     let [parsedResult, remaining] = l(remainingLexemes);
-    repeatParseResult.commands.push(parsedResult);
+    repeatParseResult.subCommands.push(parsedResult);
 
     if (remaining.length === 0) {
       throw new Error("repeat unmatched paran");

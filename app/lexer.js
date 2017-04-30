@@ -76,7 +76,7 @@ function lex(stream) {
     }
 
     if (isNumber(possibleWord)) {
-      if (isNumberDelim(stream.peek())) {
+      if (!isNumber(possibleWord+stream.peek())) {
         result.push({
           type: "number",
           value: possibleWord
