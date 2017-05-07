@@ -1,16 +1,19 @@
-const xDiff = 13;
-const yDiff = 23;
+
+const turtleWidth = 20;
+const turtleHeight = 20;
+const turtleWidthOffset = turtleWidth / 2;
+const turtleHeightOffset = turtleHeight / 2;
 
 let currentPosX, currentPosY, width, height, img, ctx, angle = 0;
 let myImageData;
 
 const convertDegToRad = a => a * Math.PI / 180;
 
-const getTurtleStartXPos = () => currentPosX - xDiff;
-const getTurtleStartYPos = () => currentPosY - yDiff;
+const getTurtleStartXPos = () => currentPosX - turtleWidthOffset;
+const getTurtleStartYPos = () => currentPosY - turtleHeightOffset;
 
-const getTurtleCenterXPos = () => getTurtleStartXPos() + img.naturalWidth / 2;
-const getTurtleCenterYPos = () => getTurtleStartYPos() + img.naturalHeight / 2;
+const getTurtleCenterXPos = () => getTurtleStartXPos() + turtleWidthOffset;
+const getTurtleCenterYPos = () => getTurtleStartYPos() + turtleHeightOffset;
 
 
 function drawLine(fromX, fromY, toX, toY) {
@@ -31,10 +34,11 @@ function linearMove(arg, forward) {
 
 function drawTurtle() {
   ctx.save();
+  ctx.putImageData(myImageData, 0, 0);
   ctx.translate( getTurtleCenterXPos(), getTurtleCenterYPos() );
   ctx.rotate( convertDegToRad(angle) );
-  ctx.translate( -img.naturalWidth / 2, -img.naturalHeight / 2 );
-  ctx.drawImage( img, 0, 0 );
+  ctx.translate( -turtleWidthOffset, -turtleHeightOffset);
+  ctx.drawImage( img, 0, 0, turtleWidth, turtleHeight );
   ctx.restore();
 }
 
@@ -98,7 +102,7 @@ const turtle = {
     angle = 0;
 
     myImageData = ctx.getImageData(0, 0, width, height);
-    ctx.drawImage(img, getTurtleStartXPos(), getTurtleStartYPos());
+    ctx.drawImage(img, getTurtleStartXPos(), getTurtleStartYPos(), turtleWidth, turtleHeight);
   }
 };
 

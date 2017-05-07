@@ -1,18 +1,23 @@
+/**
+ * To get inline styles install 'css-loader' and 'style-loader'.
+ * And add those two loaders in exports.setupCSS funtion of 'parts.js'
+ */
+
 document.addEventListener("DOMContentLoaded", function() {
   require('./dom')();
 });
 
 const turtle = require('./turtle');
-const width = 1000, height = 500;
+const height = 650, width = 600;
 
-let canvas = document.getElementById('canvas');
-canvas.width  = width;
+let canvas = document.querySelector('canvas');
 canvas.height = height;
+canvas.width = width;
 let ctx = canvas.getContext('2d');
 
 let img = new Image();
 img.onload = function() {
-  turtle.init(width, height, img, ctx);
+  turtle.init(canvas.width, canvas.height, img, ctx);
 };
 
-img.src = "turtle.jpg";
+img.src = "turtle.png";

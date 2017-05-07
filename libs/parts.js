@@ -2,15 +2,17 @@ const webpack = require('webpack');
 
 exports.setupCSS = function (paths) {
   return {
+    /*
     module: {
       loaders: [
         {
           test: /\.css$/,
-          loaders: ['css-loader'],
+          loaders: ['style-loader', 'css-loader'],
           include: paths
         }
       ]
     }
+    */
   };
 };
 

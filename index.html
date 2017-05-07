@@ -6,12 +6,16 @@
     <link rel="stylesheet" type="text/css" href="style.css"/>
   </head>
   <body>
-  <div class="container"></div>
-  <div class="canvas-container">
-    <canvas id="canvas"></canvas>
-    <div class="console">
-      <div class="output success">Logo Shell. (made by yasserhussain1110) </div>
+  <div class="container">
+    <div class="console pane">
+      <div class="output success">
+        <span><p>Logo Shell. (made by yasserhussain1110)</p></span>
+        <span class="examples"><p>Examples: <span class="code">FD 40</span>, <span class="code">REPEAT 4 [FD 40 RT 90]</span></p></span>
+      </div>
       <div class="prompt">&gt;<input spellcheck="false" class="command" value="" type="text"/></div>
+    </div>
+    <div class="canvas-container pane">
+      <canvas></canvas>
     </div>
   </div>
   </body>
