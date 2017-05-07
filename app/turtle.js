@@ -16,31 +16,35 @@ const getTurtleCenterXPos = () => getTurtleStartXPos() + turtleWidthOffset;
 const getTurtleCenterYPos = () => getTurtleStartYPos() + turtleHeightOffset;
 
 
-function drawLine(fromX, fromY, toX, toY) {
+const drawLine = (fromX, fromY, toX, toY) => {
   ctx.beginPath();
   ctx.moveTo(fromX, fromY);
   ctx.lineTo(toX, toY);
   ctx.stroke();
-}
+};
 
-function linearMove(arg, forward) {
+const linearMove = (arg, forward) => {
   let radAngle = convertDegToRad(angle);
   let finalPosY = currentPosY - Math.cos(radAngle) * arg * forward;
   let finalPosX = currentPosX + Math.sin(radAngle) * arg * forward;
   drawLine(currentPosX, currentPosY, finalPosX, finalPosY);
   currentPosX = finalPosX;
   currentPosY = finalPosY;
-}
+};
 
-function drawTurtle() {
+const drawTurtle = () => {
   ctx.save();
   ctx.putImageData(myImageData, 0, 0);
   ctx.translate( getTurtleCenterXPos(), getTurtleCenterYPos() );
   ctx.rotate( convertDegToRad(angle) );
   ctx.translate( -turtleWidthOffset, -turtleHeightOffset);
-  ctx.drawImage( img, 0, 0, turtleWidth, turtleHeight );
+  putTurtleOnCanvas(0,0);
   ctx.restore();
-}
+};
+
+const putTurtleOnCanvas = (turtleStartX = getTurtleStartXPos(), turtleStartY = getTurtleStartYPos()) => {
+  ctx.drawImage(img, turtleStartX, turtleStartY, turtleWidth, turtleHeight);
+};
 
 let repeating = false;
 
@@ -53,6 +57,30 @@ const withCanvasSaves = f => arg => {
 const withDrawTurtle = f => arg => {
   f(arg);
   drawTurtle();
+};
+
+const resetTurtlePosition = () => {
+  currentPosX = width/2;
+  currentPosY = height/2;
+  angle = 0;
+};
+
+const switchOffRepeating = () => {
+  repeating = false;
+  myImageData = ctx.getImageData(0, 0, width, height);
+  drawTurtle();
+};
+
+const switchOnRepeating = () => {
+  repeating = true;
+  ctx.putImageData(myImageData, 0, 0);
+};
+
+const cs = () => {
+  ctx.clearRect(0, 0, width, height);
+  resetTurtlePosition();
+  myImageData = ctx.getImageData(0, 0, width, height);
+  putTurtleOnCanvas();
 };
 
 const turtle = {
@@ -76,20 +104,15 @@ const turtle = {
     withRepeat: arg => angle -= arg
   },
 
-  repeating: function() {
-    repeating = true;
-    ctx.putImageData(myImageData, 0, 0);
-  },
+  cs: cs,
 
-  switchOffRepeating: function() {
-    repeating = false;
-    myImageData = ctx.getImageData(0, 0, width, height);
-    drawTurtle();
-  },
+  repeating: switchOnRepeating,
+
+  switchOffRepeating: switchOffRepeating,
 
   execute: function(commandName, argList) {
     let command = this[commandName];
-    (repeating ? command.withRepeat : command.noRepeat)(argList[0]);
+    (typeof command === 'object' ? (repeating ? command.withRepeat : command.noRepeat) : command)(...argList);
   },
 
   init: function(w, h, image, context) {
@@ -102,7 +125,7 @@ const turtle = {
     angle = 0;
 
     myImageData = ctx.getImageData(0, 0, width, height);
-    ctx.drawImage(img, getTurtleStartXPos(), getTurtleStartYPos(), turtleWidth, turtleHeight);
+    putTurtleOnCanvas();
   }
 };
 

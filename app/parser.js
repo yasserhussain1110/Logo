@@ -11,7 +11,7 @@ function parse(lexemes) {
 }
 
 const WithArgCommands = ["fd", "bk", "rt", "lt"];
-const NoArgCommands = ["home", "clean"];
+const NoArgCommands = ["home", "clean", "cs"];
 
 // L -> SC | repeat n [ {L} ]
 

@@ -68,6 +68,7 @@ function execute() {
     print(command);
   } catch (e){
     print(e.message);
+    console.log(e);
   }
   setCommand("");
 }

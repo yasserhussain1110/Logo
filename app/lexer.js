@@ -92,7 +92,7 @@ function lex(stream) {
   return result;
 }
 
-const KEYWORDS = ["repeat", "fd", "rt", "bk", "lt", "home", "clear"];
+const KEYWORDS = ["repeat", "fd", "rt", "bk", "lt", "home", "clear", "cs"];
 
 function isKeyword(word) {
   return KEYWORDS.indexOf(word) > -1;
